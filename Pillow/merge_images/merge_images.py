@@ -124,41 +124,19 @@ class img_merger():
 
 
 	def save_img(self, output_path):
-		pass
+		self.output_img.save(output_path)
+	
 
 if __name__ == "__main__":
 
 	img_path_list = []
-	img_path_list.append("wine/wine_10/kernel_1.png")
-	img_path_list.append("wine/wine_10/kernel_2.png")
-	img_path_list.append("wine/wine_10/kernel_3.png")
-	img_path_list.append("wine/wine_10/kernel_4.png")
-	img_path_list.append("wine/wine_10/kernel_5.png")
-	img_path_list.append("wine/wine_10/kernel_6.png")
+	img_path_list.append("kernel_1.png")
+	img_path_list.append("kernel_2.png")
 	imSize = Image.open(img_path_list[0]).size
 	crop_window = (80, 20,imSize[0] - 80, imSize[1] - 5)
 
 	Imerger = img_merger(img_path_list, crop_window)
 	Imerger.show_img()
+	Imerger.save_img('combined_img.png')
 
 
-
-
-
-
-#new_im = Image.new('RGB', (1000,1000))
-#
-#im2 = Image.open("wine/wine_1/kernel_2.png")
-#shp = im2.size
-#imCrop2 = im2.crop((80, 20,shp[0] - 80, shp[1] - 5))
-#
-#
-#im = Image.open("wine/wine_1/kernel_1.png")
-#shp = im.size
-#imCrop = im.crop((80, 20,shp[0] - 80, shp[1] - 5))
-#shp2 = imCrop.size
-#
-#new_im.paste(imCrop, (0,0))
-#new_im.paste(imCrop2, (480,0))
-#
-#new_im.show()
