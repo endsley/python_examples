@@ -109,18 +109,33 @@ class img_merger():
 		img_w = self.size[0]
 		img_h = self.size[1]
 
-		new_width = 3*img_w
-		new_height = 2*img_h
+		if self.horizontal:
+			new_width = 3*img_w
+			new_height = 2*img_h
+	
+			newImg = Image.new('RGB', (new_width, new_height), 'WHITE')
+			newImg.paste(self.img_list[0], (0,0))
+			newImg.paste(self.img_list[1], (img_w,0))
+			newImg.paste(self.img_list[2], (2*img_w,0))
+			newImg.paste(self.img_list[3], (0, img_h))
+			newImg.paste(self.img_list[4], (img_w, img_h))
+			newImg.paste(self.img_list[5], (2*img_w, img_h))
+	
+			self.output_img = newImg
+		else:
+			new_width = 2*img_w
+			new_height = 3*img_h
+	
+			newImg = Image.new('RGB', (new_width, new_height), 'WHITE')
+			newImg.paste(self.img_list[0], (0,0))
+			newImg.paste(self.img_list[1], (img_w,0))
+			newImg.paste(self.img_list[2], (0,img_h))
+			newImg.paste(self.img_list[3], (img_w, img_h))
+			newImg.paste(self.img_list[4], (0, 2*img_h))
+			newImg.paste(self.img_list[5], (img_w, 2*img_h))
+	
+			self.output_img = newImg
 
-		Horiz_img = Image.new('RGB', (new_width, new_height), 'WHITE')
-		Horiz_img.paste(self.img_list[0], (0,0))
-		Horiz_img.paste(self.img_list[1], (img_w,0))
-		Horiz_img.paste(self.img_list[2], (2*img_w,0))
-		Horiz_img.paste(self.img_list[3], (0, img_h))
-		Horiz_img.paste(self.img_list[4], (img_w, img_h))
-		Horiz_img.paste(self.img_list[5], (2*img_w, img_h))
-
-		self.output_img = Horiz_img
 
 
 	def save_img(self, output_path):
