@@ -1,0 +1,7 @@
+
+
+gcloud app deploy
+
+gcloud projects list
+
+gcloud config set project `PROJECT NAME`
