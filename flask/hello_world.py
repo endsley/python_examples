@@ -25,6 +25,23 @@ app = Flask(__name__)
 
 
 
+@app.route("/pledge/<string:name>/")
+def level2(name):
+	print('\n\n\n')
+	print(name)
+	print('-------')
+	print('\n\n\n')
+
+	return name
+
+@app.route("/pledge/actions/<string:name>/")
+def level3(name):
+	print('\n\n\n')
+	print(name)
+	print('-33333')
+	print('\n\n\n')
+
+	return name
 
 
 @app.route('/<string:page_name>/')
