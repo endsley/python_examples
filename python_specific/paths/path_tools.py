@@ -1,6 +1,18 @@
 #!/usr/bin/env python
 
 import os 
+from pathlib import Path
+
+def go_up_1_directory(full_path):	# path should be a string
+	return str(Path(full_path).parents[0])
+
+def initialize_empty_folder(path):
+	ensure_path_exists(path)
+	remove_files(path)
+
+def file_exists(path):
+	if os.path.exists(path): return True
+	return False
 
 def ensure_path_exists(path):
 	if os.path.exists(path): return True
@@ -22,12 +34,11 @@ def delete_file(path):
 	if os.path.exists(path):
 		os.remove(path)
 
-def remove_files(folder_path):
+def remove_files(folder_path):	# make sure to end the path with /
 	if not os.path.exists(folder_path): return 
 
 	file_in_tmp = os.listdir(folder_path)
 	for i in file_in_tmp:
 		if os.path.isfile(folder_path + i):
 			os.remove(folder_path + i)
-
 
