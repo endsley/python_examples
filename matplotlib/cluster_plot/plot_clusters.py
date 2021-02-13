@@ -21,6 +21,7 @@ def cluster_plot(X, allocation):
 	#plt.subplot(121)
 	for i, j in enumerate(labels):
 		subX = X[allocation == labels[i]]
+		import pdb; pdb.set_trace()
 		plt.plot(subX[:,0], subX[:,1], cmap[i] + '.')
 
 
