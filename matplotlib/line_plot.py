@@ -14,14 +14,21 @@ class line_plot:
 		self.set_title(title, fontsize=self.title_font)
 		self.set_xlabel(xlabel, fontsize=self.xfont)
 		self.set_ylabel(ylabel, fontsize=self.yfont)
-		self.add_text(imgText)
+		self.add_text(X, Y, imgText)
 
 		if outpath is None: plt.show()
+		else: plt.savefig(outpath)
 
+	def add_text(self, X, Y, textstr):
+		if textstr is None: return
+		mX = np.min(X)
+		mY = np.min(Y)
 
-	def add_text(self, textstr):
+		xLoc = 0.05*(np.max(X) - mX) + mX
+		yLoc = 0.95*(np.max(Y) - mY) + mY
+
 		props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
-		plt.text(0.05, 0.95, textstr, fontsize=14, verticalalignment='top', bbox=props)
+		plt.text(xLoc, yLoc, textstr, fontsize=14, verticalalignment='top', bbox=props)
 
 
 
