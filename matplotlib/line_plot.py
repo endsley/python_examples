@@ -4,25 +4,35 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 class line_plot:
-	def __init__(self):
-		pass
+	def __init__(self, title_font=16, xfont=16, yfont=16):
+		self.title_font = title_font
+		self.xfont = xfont
+		self.yfont = yfont
 
-	def plot_line(self, X, Y, title, xlabel, ylabel, outpath=None):
+	def plot_line(self, X, Y, title, xlabel, ylabel, imgText=None, outpath=None):
 		self.add_plot(X,Y)
-		self.set_title(title)
-		self.set_xlabel(xlabel)
-		self.set_ylabel(ylabel)
+		self.set_title(title, fontsize=self.title_font)
+		self.set_xlabel(xlabel, fontsize=self.xfont)
+		self.set_ylabel(ylabel, fontsize=self.yfont)
+		self.add_text(imgText)
 
 		if outpath is None: plt.show()
 
 
-	def set_title(self, title, fontsize=17):
+	def add_text(self, textstr):
+		props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
+		plt.text(0.05, 0.95, textstr, fontsize=14, verticalalignment='top', bbox=props)
+
+
+
+	#plt.axis('tight');
+	def set_title(self, title, fontsize=16):
 		plt.title(title, fontsize=fontsize)
 
-	def set_xlabel(self, xlabel, fontsize=17):
+	def set_xlabel(self, xlabel, fontsize=16):
 		plt.xlabel(xlabel, fontsize=fontsize)
 
-	def set_ylabel(self, ylabel, fontsize=17):
+	def set_ylabel(self, ylabel, fontsize=16):
 		plt.ylabel(ylabel, fontsize=fontsize)
 
 	def add_plot(self, X,Y, color='blue'):
@@ -42,8 +52,9 @@ class line_plot:
 
 
 if __name__ == "__main__":
+	textstr = '\n'.join(( r'$\mu=%.2f$' % (0.1, ), r'$\mathrm{median}=%.2f$' % (0, ), r'$\sigma=%.2f$' % (33, )))
 	x = np.linspace(0, 10, 1000)
 	y = np.sin(x)
 
 	lp = line_plot()
-	lp.plot_line(x, y, 'Title Here', 'X axis', 'Y axis')#, outpath)
+	lp.plot_line(x, y, 'Title Here', 'X axis', 'Y axis', imgText=textstr)#, outpath)
