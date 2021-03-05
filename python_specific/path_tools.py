@@ -3,6 +3,26 @@
 import os 
 from pathlib import Path
 
+def read_txt_file(path):
+	f = open(path, 'r')
+	content = f.read()
+	f.close()
+	return content
+
+def pickle_dump(obj, path):
+	pickle.dump( obj, open( path, "wb" ) )
+   
+def pickle_load(pth):
+	return pickle.load( open( pth, "rb" ) )
+
+def copy_file(src, destination):
+	copyfile(src, destination)
+
+def write_to(txt, path):
+	f = open(path, 'w')
+	f.write(txt)
+	f.close()
+
 def go_up_1_directory(full_path):	# path should be a string
 	return str(Path(full_path).parents[0])
 
