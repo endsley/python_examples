@@ -19,13 +19,13 @@ class line_plot:
 		if outpath is None: plt.show()
 		else: plt.savefig(outpath)
 
-	def add_text(self, X, Y, textstr):
+	def add_text(self, X, Y, textstr, α=0.05, β=0.95):
 		if textstr is None: return
 		mX = np.min(X)
 		mY = np.min(Y)
 
-		xLoc = 0.05*(np.max(X) - mX) + mX
-		yLoc = 0.95*(np.max(Y) - mY) + mY
+		xLoc = α*(np.max(X) - mX) + mX
+		yLoc = β*(np.max(Y) - mY) + mY
 
 		props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
 		plt.text(xLoc, yLoc, textstr, fontsize=14, verticalalignment='top', bbox=props)
