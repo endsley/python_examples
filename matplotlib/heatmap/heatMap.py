@@ -5,7 +5,9 @@ from matplotlib import pyplot as plt
 import matplotlib
 from numpy import genfromtxt
 from sklearn.cluster import SpectralClustering
- 
+from scipy.sparse import coo_matrix
+from sklearn.utils import shuffle
+
 
 class heatMap:
 	def __init__(self):
@@ -16,8 +18,8 @@ class heatMap:
 		self.cluster_by_name = {}
 
 	def sort_kernel(self, kernel, allocation, item_labels=[] ):
-		alloc_list = np.unique(allocation)
- 		ksize = kernel.shape[0]
+		alloc_list = np.unique(allocation) 
+		ksize = kernel.shape[0]
 		self.rearrangement = []
 
 		sorted_kernel = np.empty((0, ksize))
@@ -51,7 +53,7 @@ class heatMap:
 
 		return H_sorted_kernel
 
-	def draw_HeatMap(self, kernel, xlabel=[], ylabel=[], title=''):
+	def draw_HeatMap(self, kernel, xlabel=[], ylabel=[], title='', fsize=14):
 		ylabel = list(reversed(ylabel))
 		
 		kernel = np.flipud(kernel)
@@ -67,7 +69,7 @@ class heatMap:
 			ax.set_xticks(np.arange(kernel.shape[1]) + 0.5, minor=False)
 			ax.set_xticklabels(xlabel, rotation='vertical', minor=False)
 	 
-		plt.title(title)
+		plt.title(title, fontsize=fsize)
 		plt.show() 
 
 		return plt
@@ -96,12 +98,25 @@ class heatMap:
 
 
 if __name__ == "__main__":
-	dat_4 = genfromtxt('../data/data_4.csv', delimiter=',')
-	clf = SpectralClustering(n_clusters=4)
-	allocation = clf.fit_predict(dat_4)
+	X1 = np.random.randn(100,2)
+	X2 = np.random.randn(100,2) + 5
+	X = np.vstack((X1,X2))
+
+	Y1 = np.ones(100)
+	Y2 = np.zeros(100)
+	Y = np.hstack((Y1,Y2))
+
+	X_sparse = coo_matrix(X)
+	X, X_sparse, y = shuffle(X, X_sparse, Y, random_state=0) 
+
+
+	clf = SpectralClustering(n_clusters=2)
+	allocation = clf.fit_predict(X)
 	kernel = clf.affinity_matrix_
-	label = range(kernel.shape[0])
+	axis_label = range(kernel.shape[0])
 	hMap = heatMap()
 	sorted_kernel = hMap.sort_kernel(kernel, allocation)
-	hMap.draw_HeatMap(sorted_kernel, xlabel=label, ylabel=label, title='')
+	#hMap.draw_HeatMap(sorted_kernel, xlabel=axis_label, ylabel=axis_label, title='')
+	hMap.draw_HeatMap(kernel, title='Drawing Unsorted Heat Map')
+	hMap.draw_HeatMap(sorted_kernel, title='Drawing Sorted Heat Map')
 
