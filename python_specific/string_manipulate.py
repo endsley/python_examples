@@ -8,12 +8,18 @@ def block_string_concatenate(str1, str2, spacing='\t'):
 	L1 = str1.strip().split('\n')
 	L2 = str2.strip().split('\n')
 
+	max_width = len(max(L1, key=len))
 	if len(L1) > len(L2):
 		Δ = len(L1) - len(L2)
 		for ι in range(Δ):
 			L2.append('\n')
+	else:
+		Δ = len(L2) - len(L1)
+		for ι in range(Δ):
+			M = ('%-' + str(max_width) + 's')%''
+			L1.append(M)
 
-	max_width = len(max(L1, key=len))
+
 	outS = ''
 	for l1, l2 in zip(L1,L2):
 		outS += ('%-' + str(max_width) + 's' + spacing + l2 + '\n') % l1
@@ -22,6 +28,6 @@ def block_string_concatenate(str1, str2, spacing='\t'):
 
 if __name__ == "__main__":
 	str1 = 'Hello world\nA interesting string'
-	str2 = 'Second Block\nto the right'
+	str2 = 'Second Block\nto the right\nLonger'
 	outS = block_string_concatenate(str1, str2)
 	print(outS)
