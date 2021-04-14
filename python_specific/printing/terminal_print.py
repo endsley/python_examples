@@ -3,6 +3,12 @@ import sys
 import types
 import numpy as np
 
+def print_items(items)
+	outstr = ''
+	for i in items:
+		outstr + = i + ' : ' + str(eval(i)) + ', '
+	print(outstr)
+
 def clear_current_line():
 	sys.stdout.write("\r")
 	sys.stdout.write("\033[K")
